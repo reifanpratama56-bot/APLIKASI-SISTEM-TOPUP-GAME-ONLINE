@@ -1,9 +1,3 @@
-// ════════════════════════════════════════════════════════════════════════════════════
-// 📌 FILE: FormTopup.java
-// 📝 FUNGSI: Halaman utama untuk melakukan topup game
-// 🔧 DAPAT DIUBAH: Warna tema, daftar game, nominal, metode pembayaran
-// ════════════════════════════════════════════════════════════════════════════════════
-
 package form;
 
 import model.*;
@@ -16,24 +10,19 @@ import java.util.Map;
 
 public class FormTopup extends JFrame {
     
-    // ──────────────────────────────────────────────────────────────────────────────
-    // 🎨 WARNA TEMA
-    // ──────────────────────────────────────────────────────────────────────────────
-    private final Color COLOR_PRIMARY = new Color(0, 102, 204);       // 🔵 Warna utama
-    private final Color COLOR_SECONDARY = new Color(16, 185, 129);    // 🟢 Warna sekunder
-    private final Color COLOR_ACCENT = new Color(245, 158, 11);       // 🟡 Warna aksen
-    private final Color COLOR_DANGER = new Color(239, 68, 68);        // 🔴 Warna danger
-    private final Color COLOR_BG = new Color(0, 102, 204);            // 🔵 Background atas
-    private final Color COLOR_BG_DARK = new Color(0, 51, 102);        // 🔵 Background bawah
-    private final Color COLOR_CARD = new Color(224, 240, 255);        // 🔵 Background card
-    private final Color COLOR_TEXT = new Color(0, 51, 102);           // 🔵 Warna teks
-    private final Color COLOR_TEXT_MUTED = new Color(70, 130, 200);   // 🔵 Teks muted
-    private final Color COLOR_BORDER = new Color(100, 149, 237);      // 🔵 Warna border
-    private final Color COLOR_HOVER = new Color(200, 225, 255);       // 🔵 Warna hover
+    private final Color COLOR_PRIMARY = new Color(0, 102, 204);
+    private final Color COLOR_SECONDARY = new Color(16, 185, 129);
+    private final Color COLOR_ACCENT = new Color(245, 158, 11);
+    private final Color COLOR_DANGER = new Color(239, 68, 68);
+    private final Color COLOR_BG = new Color(0, 102, 204);
+    private final Color COLOR_BG_DARK = new Color(0, 51, 102);
+    private final Color COLOR_CARD = new Color(224, 240, 255);
+    private final Color COLOR_TEXT = new Color(0, 51, 102);
+    private final Color COLOR_TEXT_MUTED = new Color(70, 130, 200);
+    private final Color COLOR_BORDER = new Color(100, 149, 237);
+    private final Color COLOR_HOVER = new Color(200, 225, 255);
+    private final Color HEADER_BG = new Color(200, 225, 255);
     
-    // ──────────────────────────────────────────────────────────────────────────────
-    // 📌 DEKLARASI KOMPONEN
-    // ──────────────────────────────────────────────────────────────────────────────
     private JPanel gameGridPanel, nominalGridPanel;
     private JTextField txtUserId, txtEmail, txtPromoCode;
     private JTextArea txtRingkasan;
@@ -54,9 +43,6 @@ public class FormTopup extends JFrame {
     private int appliedDiscount = 0;
     private String appliedPromoCode = null;
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 CONSTRUCTOR
-    // ════════════════════════════════════════════════════════════════════════════════
     public FormTopup(User user) {
         this.loggedInUser = user;
         UIManager.put("OptionPane.yesButtonText", "Ya");
@@ -67,18 +53,12 @@ public class FormTopup extends JFrame {
         setVisible(true);
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: initComponents()
-    // 📝 FUNGSI: Membuat semua komponen UI
-    // ════════════════════════════════════════════════════════════════════════════════
     private void initComponents() {
-        // 📌 Pengaturan frame
         setTitle("Topup Game Store - Topup Diamond Termurah");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         getContentPane().setBackground(COLOR_BG);
         
-        // 📌 Main panel dengan gradient background
         JPanel mainPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -98,14 +78,12 @@ public class FormTopup extends JFrame {
         gbc.insets = new Insets(20, 20, 20, 20);
         gbc.anchor = GridBagConstraints.CENTER;
         
-        // 📌 Content panel
         JPanel contentPanel = new JPanel();
         contentPanel.setBackground(COLOR_CARD);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setMaximumSize(new Dimension(1200, 1200));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(25, 30, 25, 30));
         
-        // 📌 Tambahkan semua section
         contentPanel.add(createHeader());
         contentPanel.add(Box.createVerticalStrut(15));
         contentPanel.add(createHeroBanner());
@@ -125,7 +103,6 @@ public class FormTopup extends JFrame {
         contentPanel.add(createFormPembeli());
         contentPanel.add(Box.createVerticalStrut(20));
         
-        // 📌 Bottom panel (Ringkasan & Action)
         JPanel bottomPanel = new JPanel(new GridLayout(1, 2, 20, 0));
         bottomPanel.setBackground(COLOR_CARD);
         bottomPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -146,17 +123,12 @@ public class FormTopup extends JFrame {
         add(scrollPane, BorderLayout.CENTER);
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createHeader()
-    // 📝 FUNGSI: Membuat header (poin + judul + tombol kembali)
-    // ════════════════════════════════════════════════════════════════════════════════
     private JPanel createHeader() {
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(HEADER_BG);
         header.setMaximumSize(new Dimension(1200, 60));
         header.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         
-        // 📌 Kiri: Poin user
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         leftPanel.setBackground(HEADER_BG);
         JLabel balance = new JLabel("⭐ " + loggedInUser.getPoin() + " Poin");
@@ -168,7 +140,6 @@ public class FormTopup extends JFrame {
         ));
         leftPanel.add(balance);
         
-        // 📌 Kanan: Tombol kembali
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         rightPanel.setBackground(HEADER_BG);
         JButton btnBack = new JButton("← Kembali ke Dashboard");
@@ -181,7 +152,6 @@ public class FormTopup extends JFrame {
             BorderFactory.createLineBorder(COLOR_PRIMARY, 1),
             BorderFactory.createEmptyBorder(8, 18, 8, 18)
         ));
-        // Efek hover
         btnBack.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 btnBack.setBackground(COLOR_PRIMARY);
@@ -198,7 +168,6 @@ public class FormTopup extends JFrame {
         });
         rightPanel.add(btnBack);
         
-        // 📌 Tengah: Judul
         JPanel centerPanel = new JPanel();
         centerPanel.setBackground(HEADER_BG);
         JLabel title = new JLabel("🎮 TOPUP GAME STORE");
@@ -212,12 +181,7 @@ public class FormTopup extends JFrame {
         
         return header;
     }
-    private final Color HEADER_BG = new Color(200, 225, 255);
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createHeroBanner()
-    // 📝 FUNGSI: Membuat banner promosi
-    // ════════════════════════════════════════════════════════════════════════════════
     private JPanel createHeroBanner() {
         JPanel hero = new JPanel() {
             @Override
@@ -235,7 +199,6 @@ public class FormTopup extends JFrame {
         hero.setPreferredSize(new Dimension(0, 110));
         hero.setMaximumSize(new Dimension(1200, 120));
         
-        // 📌 Teks utama di tengah
         JPanel centerPanel = new JPanel(new GridBagLayout());
         centerPanel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -263,7 +226,6 @@ public class FormTopup extends JFrame {
         
         centerPanel.add(textPanel, gbc);
         
-        // 📌 Badge di kanan
         JLabel badge = new JLabel("⚡ PROSES 1-5 MENIT ⚡");
         badge.setFont(new Font("Dialog", Font.BOLD, 11));
         badge.setForeground(COLOR_ACCENT);
@@ -277,10 +239,6 @@ public class FormTopup extends JFrame {
         return hero;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createSectionTitle()
-    // 📝 FUNGSI: Membuat judul section
-    // ════════════════════════════════════════════════════════════════════════════════
     private JPanel createSectionTitle(String title, String subtitle) {
         JPanel panel = new JPanel();
         panel.setBackground(COLOR_CARD);
@@ -305,17 +263,21 @@ public class FormTopup extends JFrame {
         return panel;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createGameSection()
-    // 📝 FUNGSI: Membuat grid pilihan game
-    // 🔧 TAMBAH: Game baru di array games[]
-    // ════════════════════════════════════════════════════════════════════════════════
+    private class GameData {
+        String name, shortName, icon, publisher;
+        GameData(String name, String shortName, String icon, String publisher) {
+            this.name = name; 
+            this.shortName = shortName; 
+            this.icon = icon; 
+            this.publisher = publisher;
+        }
+    }
+    
     private JPanel createGameSection() {
         JPanel card = createCardPanel();
         card.setLayout(new BorderLayout());
         card.setMaximumSize(new Dimension(1200, 380));
         
-        // 📌 Search bar
         JPanel searchPanel = new JPanel(new BorderLayout(10, 0));
         searchPanel.setBackground(Color.WHITE);
         searchPanel.setBorder(BorderFactory.createCompoundBorder(
@@ -331,13 +293,10 @@ public class FormTopup extends JFrame {
         card.add(searchPanel, BorderLayout.NORTH);
         card.add(Box.createVerticalStrut(15), BorderLayout.CENTER);
         
-        // 📌 Grid game
         gameGridPanel = new JPanel(new GridLayout(2, 8, 10, 10));
         gameGridPanel.setBackground(COLOR_CARD);
         gameGridPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 10, 5));
         
-        // 📌 Daftar game (16 game)
-        // ➕ TAMBAH: Tambah game baru di sini
         GameData[] games = {
             new GameData("Mobile Legends", "MLBB", "📱", "Moonton"),
             new GameData("Magic Chess Go Go", "MCGG", "🌍", "Moonton"),
@@ -355,7 +314,6 @@ public class FormTopup extends JFrame {
             new GameData("Wild Rift", "Wild Rift", "🐺", "Riot Games"),
             new GameData("Among Us", "Among", "👽", "Innersloth"),
             new GameData("Brawl Stars", "Brawl", "⭐", "Supercell"),
-            
         };
         
         for (GameData g : games) {
@@ -363,7 +321,6 @@ public class FormTopup extends JFrame {
         }
         card.add(gameGridPanel, BorderLayout.CENTER);
         
-        // 📌 Search filter
         txtSearchField.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent evt) {
                 filterGames(txtSearchField.getText());
@@ -373,24 +330,6 @@ public class FormTopup extends JFrame {
         return card;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 INNER CLASS: GameData
-    // 📝 FUNGSI: Menyimpan data game untuk ditampilkan di grid
-    // ════════════════════════════════════════════════════════════════════════════════
-    private class GameData {
-        String name, shortName, icon, publisher;
-        GameData(String name, String shortName, String icon, String publisher) {
-            this.name = name; 
-            this.shortName = shortName; 
-            this.icon = icon; 
-            this.publisher = publisher;
-        }
-    }
-    
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: filterGames()
-    // 📝 FUNGSI: Filter game berdasarkan keyword pencarian
-    // ════════════════════════════════════════════════════════════════════════════════
     private void filterGames(String keyword) {
         gameGridPanel.removeAll();
         GameData[] allGames = {
@@ -410,7 +349,6 @@ public class FormTopup extends JFrame {
             new GameData("Wild Rift", "Wild Rift", "🐺", "Riot Games"),
             new GameData("Among Us", "Among", "👽", "Innersloth"),
             new GameData("Brawl Stars", "Brawl", "⭐", "Supercell"),
-            
         };
         
         for (GameData g : allGames) {
@@ -423,10 +361,6 @@ public class FormTopup extends JFrame {
         gameGridPanel.repaint();
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createGameCard()
-    // 📝 FUNGSI: Membuat card untuk satu game dengan logo gambar
-    // ════════════════════════════════════════════════════════════════════════════════
     private JPanel createGameCard(GameData game) {
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -437,7 +371,6 @@ public class FormTopup extends JFrame {
         ));
         card.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
-        // 📌 Logo game dari ImageLoader
         String imageFile = getImageFileName(game.shortName);
         ImageIcon gameIcon = ImageLoader.loadGameIcon(imageFile, 55, 55);
         JLabel iconLabel = new JLabel(gameIcon);
@@ -459,7 +392,6 @@ public class FormTopup extends JFrame {
         card.add(Box.createVerticalStrut(2));
         card.add(publisherLabel);
         
-        // 📌 Event mouse (klik, hover)
         card.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 selectGame(game.name);
@@ -500,11 +432,6 @@ public class FormTopup extends JFrame {
         return card;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: getImageFileName()
-    // 📝 FUNGSI: Mapping nama game ke file gambar
-    // 🔧 TAMBAH: Game baru di sini
-    // ════════════════════════════════════════════════════════════════════════════════
     private String getImageFileName(String shortName) {
         switch (shortName.toLowerCase()) {
             case "mlbb": return "mlbb.png";
@@ -527,10 +454,6 @@ public class FormTopup extends JFrame {
         }
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: getPaymentImageFileName()
-    // 📝 FUNGSI: Mapping metode pembayaran ke file gambar
-    // ════════════════════════════════════════════════════════════════════════════════
     private String getPaymentImageFileName(String paymentName) {
         switch (paymentName.toLowerCase()) {
             case "dana": return "dana.png";
@@ -541,10 +464,6 @@ public class FormTopup extends JFrame {
         }
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: selectGame()
-    // 📝 FUNGSI: Memproses pemilihan game
-    // ════════════════════════════════════════════════════════════════════════════════
     private void selectGame(String gameName) {
         selectedGame = Game.getGameByNama(gameName);
         if (selectedGame == null) {
@@ -559,10 +478,6 @@ public class FormTopup extends JFrame {
         updateRingkasan();
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createNominalSection()
-    // 📝 FUNGSI: Membuat section pilihan nominal
-    // ════════════════════════════════════════════════════════════════════════════════
     private JPanel createNominalSection() {
         JPanel card = createCardPanel();
         card.setMaximumSize(new Dimension(1200, 220));
@@ -578,10 +493,6 @@ public class FormTopup extends JFrame {
         return card;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: updateNominalGrid()
-    // 📝 FUNGSI: Mengupdate grid nominal berdasarkan game yang dipilih
-    // ════════════════════════════════════════════════════════════════════════════════
     private void updateNominalGrid() {
         nominalGridPanel.removeAll();
         nominalGridPanel.setLayout(new GridLayout(0, 5, 10, 10));
@@ -603,11 +514,6 @@ public class FormTopup extends JFrame {
         nominalGridPanel.repaint();
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createNominalCard()
-    // 📝 FUNGSI: Membuat card untuk satu nominal
-    // 🔧 TAMBAH: Deteksi item type baru di sini
-    // ════════════════════════════════════════════════════════════════════════════════
     private JPanel createNominalCard(String nominal, int price) {
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -620,8 +526,6 @@ public class FormTopup extends JFrame {
         
         String amount = nominal.split(" ")[0];
         
-        // 📌 Deteksi jenis item
-        // 🔧 TAMBAH: Tambah else if untuk game baru
         String itemType;
         if (selectedGame != null && selectedGame.getNamaGame().equals("Call of Duty Mobile")) {
             itemType = "🔫 CP";
@@ -718,10 +622,6 @@ public class FormTopup extends JFrame {
         return card;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createPaymentSection()
-    // 📝 FUNGSI: Membuat section metode pembayaran (E-WALLET)
-    // ════════════════════════════════════════════════════════════════════════════════
     private JPanel createPaymentSection() {
         JPanel card = createCardPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -738,7 +638,6 @@ public class FormTopup extends JFrame {
         JPanel ewalletPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 8));
         ewalletPanel.setBackground(COLOR_CARD);
         
-        // 📌 Daftar E-WALLET
         String[][] eWallets = {{"Dana", "💰"}, {"GoPay", "🐐"}, {"Ovo", "🟣"}, {"ShopeePay", "🛒"}};
         for (String[] ew : eWallets) {
             ewalletPanel.add(createPaymentCard(ew[0], ew[1]));
@@ -749,10 +648,6 @@ public class FormTopup extends JFrame {
         return card;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createPaymentCard()
-    // 📝 FUNGSI: Membuat card untuk satu metode pembayaran
-    // ════════════════════════════════════════════════════════════════════════════════
     private JPanel createPaymentCard(String name, String icon) {
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -764,7 +659,6 @@ public class FormTopup extends JFrame {
         card.setCursor(new Cursor(Cursor.HAND_CURSOR));
         card.setPreferredSize(new Dimension(85, 75));
         
-        // 📌 Logo payment dari ImageLoader
         String imageFile = getPaymentImageFileName(name);
         ImageIcon paymentIcon = ImageLoader.loadPaymentIcon(imageFile, 40, 40);
         JLabel iconLabel = new JLabel(paymentIcon);
@@ -823,10 +717,6 @@ public class FormTopup extends JFrame {
         return card;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createFormPembeli()
-    // 📝 FUNGSI: Membuat form input user (ID Game, Email, Kode Promo)
-    // ════════════════════════════════════════════════════════════════════════════════
     private JPanel createFormPembeli() {
         JPanel card = createCardPanel();
         card.setMaximumSize(new Dimension(1200, 220));
@@ -835,7 +725,6 @@ public class FormTopup extends JFrame {
         gbc.insets = new Insets(8, 10, 8, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         
-        // 📌 ID Game
         gbc.gridx = 0; gbc.gridy = 0;
         JLabel idLabel = new JLabel("🆔 ID GAME");
         idLabel.setFont(new Font("Dialog", Font.BOLD, 13));
@@ -851,7 +740,6 @@ public class FormTopup extends JFrame {
         ));
         card.add(txtUserId, gbc);
         
-        // 📌 Email
         gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0;
         JLabel emailLabel = new JLabel("📧 EMAIL");
         emailLabel.setFont(new Font("Dialog", Font.BOLD, 13));
@@ -867,7 +755,6 @@ public class FormTopup extends JFrame {
         ));
         card.add(txtEmail, gbc);
         
-        // 📌 Kode Promo
         gbc.gridx = 0; gbc.gridy = 2;
         JLabel promoLabel = new JLabel("🎟️ KODE PROMO");
         promoLabel.setFont(new Font("Dialog", Font.BOLD, 13));
@@ -898,10 +785,6 @@ public class FormTopup extends JFrame {
         return card;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createRingkasanPanel()
-    // 📝 FUNGSI: Membuat panel ringkasan pembayaran
-    // ════════════════════════════════════════════════════════════════════════════════
     private JPanel createRingkasanPanel() {
         JPanel card = createCardPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -935,7 +818,6 @@ public class FormTopup extends JFrame {
         card.add(sep);
         card.add(Box.createVerticalStrut(10));
         
-        // 📌 Total Bayar
         JPanel totalPanel = new JPanel(new BorderLayout());
         totalPanel.setBackground(Color.WHITE);
         totalPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
@@ -961,17 +843,12 @@ public class FormTopup extends JFrame {
         return card;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createActionPanel()
-    // 📝 FUNGSI: Membuat panel tombol aksi (Bayar & Reset)
-    // ════════════════════════════════════════════════════════════════════════════════
     private JPanel createActionPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(COLOR_CARD);
         panel.setMaximumSize(new Dimension(580, 400));
         
-        // 📌 Tombol Bayar
         btnBayar = new JButton("💳 BAYAR SEKARANG");
         btnBayar.setFont(new Font("Dialog", Font.BOLD, 16));
         btnBayar.setBackground(COLOR_PRIMARY);
@@ -982,7 +859,6 @@ public class FormTopup extends JFrame {
         btnBayar.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnBayar.setEnabled(false);
         
-        // 📌 Tombol Reset
         btnReset = new JButton("🗑️ RESET FORM");
         btnReset.setFont(new Font("Dialog", Font.BOLD, 14));
         btnReset.setBackground(Color.WHITE);
@@ -1000,7 +876,6 @@ public class FormTopup extends JFrame {
         panel.add(btnReset);
         panel.add(Box.createVerticalStrut(20));
         
-        // 📌 Benefit Panel
         JPanel benefitPanel = new JPanel(new GridLayout(3, 1, 0, 10));
         benefitPanel.setBackground(COLOR_CARD);
         benefitPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -1047,10 +922,6 @@ public class FormTopup extends JFrame {
         return panel;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createFooter()
-    // 📝 FUNGSI: Membuat footer
-    // ════════════════════════════════════════════════════════════════════════════════
     private JPanel createFooter() {
         JPanel footer = new JPanel();
         footer.setBackground(COLOR_CARD);
@@ -1064,10 +935,6 @@ public class FormTopup extends JFrame {
         return footer;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: createCardPanel()
-    // 📝 FUNGSI: Membuat panel card dengan border
-    // ════════════════════════════════════════════════════════════════════════════════
     private JPanel createCardPanel() {
         JPanel card = new JPanel();
         card.setBackground(COLOR_CARD);
@@ -1080,10 +947,6 @@ public class FormTopup extends JFrame {
         return card;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: updateRingkasan()
-    // 📝 FUNGSI: Mengupdate ringkasan pembayaran
-    // ════════════════════════════════════════════════════════════════════════════════
     private void updateRingkasan() {
         StringBuilder sb = new StringBuilder();
         sb.append("Game yang dipilih    : ").append(selectedGame != null ? selectedGame.getNamaGame() : "-").append("\n");
@@ -1129,28 +992,16 @@ public class FormTopup extends JFrame {
         }
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: formatRupiah()
-    // 📝 FUNGSI: Memformat angka ke format Rupiah
-    // ════════════════════════════════════════════════════════════════════════════════
     private String formatRupiah(int amount) {
         return "Rp " + String.format("%,d", amount).replace(",", ".");
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: setListeners()
-    // 📝 FUNGSI: Menambahkan event listener ke tombol
-    // ════════════════════════════════════════════════════════════════════════════════
     private void setListeners() {
         btnBayar.addActionListener(e -> prosesBayar());
         btnReset.addActionListener(e -> resetForm());
         btnApplyPromo.addActionListener(e -> applyPromo());
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: applyPromo()
-    // 📝 FUNGSI: Menerapkan kode promo (HANYA WEEKEND20 dan FREEADMIN)
-    // ════════════════════════════════════════════════════════════════════════════════
     private void applyPromo() {
         String promoCode = txtPromoCode.getText().trim().toUpperCase();
         if (promoCode.isEmpty()) {
@@ -1158,7 +1009,6 @@ public class FormTopup extends JFrame {
             return;
         }
         
-        // 📌 Validasi hanya WEEKEND20 dan FREEADMIN
         if (!promoCode.equals("WEEKEND20") && !promoCode.equals("FREEADMIN")) {
             JOptionPane.showMessageDialog(this, 
                 "❌ Kode promo tidak valid!\n\n" +
@@ -1169,20 +1019,14 @@ public class FormTopup extends JFrame {
             return;
         }
         
-        // 📌 Proses validasi melalui PromoManager
         if (PromoManager.isValidPromo(promoCode)) {
-            // 📌 Ambil total sebelum promo
             int totalSebelum = getCurrentTotal();
             int adminFee = selectedMetode != null ? selectedMetode.getBiayaAdmin() : 0;
-            
-            // 📌 Terapkan promo dengan admin fee
             int totalSesudah = PromoManager.applyPromoWithAdmin(promoCode, selectedPrice, adminFee);
             
-            // 📌 Hitung diskon
             appliedDiscount = totalSebelum - totalSesudah;
             appliedPromoCode = promoCode;
             
-            // 📌 Cek tipe promo untuk pesan yang sesuai
             String promoType = PromoManager.getPromoType(promoCode);
             String pesan = "";
             
@@ -1205,10 +1049,6 @@ public class FormTopup extends JFrame {
         }
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: getCurrentTotal()
-    // 📝 FUNGSI: Menghitung total saat ini (harga + admin)
-    // ════════════════════════════════════════════════════════════════════════════════
     private int getCurrentTotal() {
         int total = selectedPrice;
         if (selectedMetode != null) {
@@ -1217,17 +1057,11 @@ public class FormTopup extends JFrame {
         return total;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: prosesBayar()
-    // 📝 FUNGSI: Memulai proses pembayaran
-    // ════════════════════════════════════════════════════════════════════════════════
     private void prosesBayar() {
-        // 📌 Validasi ID Game
         if (txtUserId.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Masukkan ID Game Anda terlebih dahulu!");
             return;
         }
-        // 📌 Validasi Email
         if (txtEmail.getText().trim().isEmpty() || !txtEmail.getText().contains("@")) {
             JOptionPane.showMessageDialog(this, "Masukkan email yang valid!");
             return;
@@ -1237,12 +1071,7 @@ public class FormTopup extends JFrame {
         showRealisticEWalletConfirmation(totalBayar);
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: showRealisticEWalletConfirmation()
-    // 📝 FUNGSI: Menampilkan dialog konfirmasi pembayaran
-    // ════════════════════════════════════════════════════════════════════════════════
     private void showRealisticEWalletConfirmation(int totalBayar) {
-        // 📌 Membuat dialog konfirmasi
         JDialog confirmDialog = new JDialog(this, "💳 Konfirmasi Pembayaran", true);
         confirmDialog.setLayout(new BorderLayout());
         confirmDialog.getContentPane().setBackground(Color.WHITE);
@@ -1252,7 +1081,6 @@ public class FormTopup extends JFrame {
         mainPanel.setBackground(Color.WHITE);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(25, 30, 25, 30));
         
-        // 📌 Header
         JLabel iconLabel = new JLabel("💳");
         iconLabel.setFont(new Font("Dialog", Font.PLAIN, 48));
         iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -1273,7 +1101,6 @@ public class FormTopup extends JFrame {
         mainPanel.add(subTitleLabel);
         mainPanel.add(Box.createVerticalStrut(20));
         
-        // 📌 Timer Countdown
         JPanel timerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
         timerPanel.setBackground(new Color(255, 240, 240));
         timerPanel.setBorder(BorderFactory.createEmptyBorder(8, 0, 8, 0));
@@ -1287,7 +1114,6 @@ public class FormTopup extends JFrame {
         mainPanel.add(timerPanel);
         mainPanel.add(Box.createVerticalStrut(15));
         
-        // 📌 Virtual Account
         String vaNumber = "8810" + System.currentTimeMillis() % 10000000000L;
         JPanel vaPanel = new JPanel();
         vaPanel.setBackground(new Color(240, 248, 255));
@@ -1308,7 +1134,6 @@ public class FormTopup extends JFrame {
         vaNumberLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         vaPanel.add(vaNumberLabel);
         
-        // 📌 Tombol Salin VA
         JButton copyButton = new JButton("📋 Salin VA");
         copyButton.setFont(new Font("Dialog", Font.BOLD, 11));
         copyButton.setBackground(new Color(224, 240, 255));
@@ -1326,7 +1151,6 @@ public class FormTopup extends JFrame {
         mainPanel.add(vaPanel);
         mainPanel.add(Box.createVerticalStrut(15));
         
-        // 📌 Status Progress
         JPanel statusPanel = new JPanel();
         statusPanel.setBackground(new Color(245, 247, 250));
         statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
@@ -1347,7 +1171,6 @@ public class FormTopup extends JFrame {
         mainPanel.add(statusPanel);
         mainPanel.add(Box.createVerticalStrut(15));
         
-        // 📌 Struk Pembelian
         JPanel strukPanel = new JPanel();
         strukPanel.setBackground(new Color(248, 250, 252));
         strukPanel.setBorder(BorderFactory.createCompoundBorder(
@@ -1381,7 +1204,6 @@ public class FormTopup extends JFrame {
         mainPanel.add(strukPanel);
         mainPanel.add(Box.createVerticalStrut(15));
         
-        // 📌 Instruksi Pembayaran
         JPanel instruksiPanel = new JPanel();
         instruksiPanel.setBackground(new Color(255, 248, 230));
         instruksiPanel.setBorder(BorderFactory.createCompoundBorder(
@@ -1396,7 +1218,6 @@ public class FormTopup extends JFrame {
         instruksiPanel.add(instruksiTitle);
         instruksiPanel.add(Box.createVerticalStrut(8));
         
-        // 📌 Instruksi berdasarkan E-Wallet
         String metode = selectedMetode.getNamaMetode().toLowerCase();
         String[] instruksi;
         switch (metode) {
@@ -1461,7 +1282,6 @@ public class FormTopup extends JFrame {
         mainPanel.add(instruksiPanel);
         mainPanel.add(Box.createVerticalStrut(20));
         
-        // 📌 Tombol Aksi
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
         buttonPanel.setBackground(Color.WHITE);
         JButton btnBayar = new JButton("✅ Saya Sudah Bayar");
@@ -1487,7 +1307,6 @@ public class FormTopup extends JFrame {
         confirmDialog.setLocationRelativeTo(this);
         confirmDialog.setResizable(false);
         
-        // 📌 Countdown Timer
         Timer countdownTimer = new Timer(1000, new ActionListener() {
             int seconds = 600;
             @Override
@@ -1516,7 +1335,6 @@ public class FormTopup extends JFrame {
         });
         countdownTimer.start();
         
-        // 📌 Action Listener
         btnBayar.addActionListener(e -> {
             countdownTimer.stop();
             confirmDialog.dispose();
@@ -1529,13 +1347,8 @@ public class FormTopup extends JFrame {
         confirmDialog.setVisible(true);
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: prosesBayarLanjut()
-    // 📝 FUNGSI: Proses setelah user mengkonfirmasi pembayaran
-    // ════════════════════════════════════════════════════════════════════════════════
     private void prosesBayarLanjut(int totalBayar) {
         try {
-            // 📌 Simpan transaksi
             Transaction transaksi = new Transaction(
                 selectedGame.getNamaGame(), selectedNominal, selectedPrice,
                 selectedMetode.getNamaMetode(), selectedMetode.getBiayaAdmin(),
@@ -1546,7 +1359,6 @@ public class FormTopup extends JFrame {
             Transaction.simpanTransaksi(transaksi);
             User.updateUserAfterTopup(loggedInUser.getUsername(), totalBayar);
             
-            // 📌 Progress Bar Menunggu Topup
             JPanel progressPanel = new JPanel();
             progressPanel.setLayout(new BoxLayout(progressPanel, BoxLayout.Y_AXIS));
             progressPanel.setBackground(Color.WHITE);
@@ -1582,7 +1394,6 @@ public class FormTopup extends JFrame {
             progressPanel.add(progressBarLoading);
             progressPanel.add(Box.createVerticalStrut(15));
             
-            // 📌 Info transaksi
             JPanel infoPanel = new JPanel(new GridLayout(0, 2, 15, 8));
             infoPanel.setBackground(new Color(248, 250, 252));
             infoPanel.setBorder(BorderFactory.createCompoundBorder(
@@ -1627,7 +1438,6 @@ public class FormTopup extends JFrame {
             progressText.setAlignmentX(Component.CENTER_ALIGNMENT);
             progressPanel.add(progressText);
             
-            // 📌 Dialog progress
             JDialog progressDialog = new JDialog(this, "⏳ Memproses Topup", true);
             progressDialog.setContentPane(new JScrollPane(progressPanel));
             progressDialog.setSize(520, 540);
@@ -1635,7 +1445,6 @@ public class FormTopup extends JFrame {
             progressDialog.setResizable(false);
             progressDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
             
-            // 📌 Timer progress
             Timer progressTimer = new Timer(100, new ActionListener() {
                 int progress = 0;
                 @Override
@@ -1682,10 +1491,6 @@ public class FormTopup extends JFrame {
         }
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: showSuccessStruk()
-    // 📝 FUNGSI: Menampilkan struk sukses pembayaran
-    // ════════════════════════════════════════════════════════════════════════════════
     private void showSuccessStruk(int totalBayar, Transaction transaksi) {
         User updatedUser = User.getUserByUsername(loggedInUser.getUsername());
         int poinSekarang = (updatedUser != null) ? updatedUser.getPoin() : loggedInUser.getPoin();
@@ -1708,7 +1513,6 @@ public class FormTopup extends JFrame {
         successPanel.add(titleLabel);
         successPanel.add(Box.createVerticalStrut(15));
         
-        // 📌 Struk
         JPanel strukPanel = new JPanel();
         strukPanel.setBackground(new Color(248, 250, 252));
         strukPanel.setBorder(BorderFactory.createCompoundBorder(
@@ -1806,20 +1610,12 @@ public class FormTopup extends JFrame {
         successDialog.setVisible(true);
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: padRight()
-    // 📝 FUNGSI: Menambahkan padding ke kanan string
-    // ════════════════════════════════════════════════════════════════════════════════
     private String padRight(String s, int length) {
         if (s == null) s = "-";
         if (s.length() > length) return s.substring(0, length);
         return String.format("%-" + length + "s", s);
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 METHOD: resetForm()
-    // 📝 FUNGSI: Mereset semua pilihan dan form
-    // ════════════════════════════════════════════════════════════════════════════════
     private void resetForm() {
         selectedGame = null;
         selectedNominal = null;
@@ -1838,7 +1634,6 @@ public class FormTopup extends JFrame {
         
         updateRingkasan();
         
-        // Reset game grid
         for (Component comp : gameGridPanel.getComponents()) {
             if (comp instanceof JPanel) {
                 comp.setBackground(Color.WHITE);
@@ -1849,7 +1644,6 @@ public class FormTopup extends JFrame {
             }
         }
         
-        // Reset nominal grid
         nominalGridPanel.removeAll();
         JLabel placeholder = new JLabel("Pilih game terlebih dahulu", SwingConstants.CENTER);
         placeholder.setForeground(COLOR_TEXT_MUTED);
