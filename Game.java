@@ -1,12 +1,5 @@
-// ════════════════════════════════════════════════════════════════════════════════════
-// 📌 FILE: Game.java
-// 📝 FUNGSI: Menyimpan data semua game yang tersedia untuk topup beserta nominalnya
-// 🔧 DAPAT DIUBAH: Tambah game baru, ubah nominal, ubah harga
-// ════════════════════════════════════════════════════════════════════════════════════
-
 package model;
 
-// 📦 IMPORT LIBRARY
 import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,39 +8,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-// ════════════════════════════════════════════════════════════════════════════════════
-// 📌 CLASS: Game
-// 📝 FUNGSI: Blueprint untuk objek Game yang menyimpan informasi game
-// 🔧 DAPAT DIUBAH: Menambah atribut baru (misal: gambar, genre, dll)
-// ════════════════════════════════════════════════════════════════════════════════════
 public class Game {
     
-    // ──────────────────────────────────────────────────────────────────────────────
-    // 📌 ATRIBUT / PROPERTIES GAME
-    // ──────────────────────────────────────────────────────────────────────────────
-    private String kodeGame;                    // 📌 Kode unik game (Primary Key)
-    private String namaGame;                    // 📌 Nama lengkap game
-    private String publisher;                   // 📌 Nama publisher/developer game
-    private Map<String, Integer> nominalTopup;  // 📌 Map (Nama nominal → Harga dalam Rupiah)
+    private String kodeGame;
+    private String namaGame;
+    private String publisher;
+    private Map<String, Integer> nominalTopup;
     
-    // ──────────────────────────────────────────────────────────────────────────────
-    // 📌 DATABASE GAME (Static)
-    // 📝 FUNGSI: Menyimpan semua data game dalam bentuk HashMap
-    // 🔧 DAPAT DIUBAH: HashMap → LinkedHashMap jika ingin menjaga urutan
-    // ──────────────────────────────────────────────────────────────────────────────
     private static Map<String, Game> daftarGame = new HashMap<>();
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 STATIC BLOCK - INISIALISASI DATA GAME
-    // 📝 FUNGSI: Dijalankan OTOMATIS saat class Game pertama kali di-load
-    // 🔧 DAPAT DIUBAH: Tambah game baru, ubah nominal, ubah harga
-    // ════════════════════════════════════════════════════════════════════════════════
     static {
-        
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 1: CALL OF DUTY MOBILE
-        // 📝 Publisher: Activision | 💰 Mata Uang: CP (COD Points)
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> codmNominal = new LinkedHashMap<>();
         codmNominal.put("80 CP", 15000);
         codmNominal.put("400 CP", 73000);
@@ -57,10 +27,6 @@ public class Game {
         codmNominal.put("10000 CP", 1800000);
         daftarGame.put("CODM01", new Game("CODM01", "Call of Duty Mobile", "Activision", codmNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 2: MOBILE LEGENDS
-        // 📝 Publisher: Moonton | 💰 Mata Uang: Diamonds
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> mlNominal = new LinkedHashMap<>();
         mlNominal.put("86 Diamonds", 18000);
         mlNominal.put("172 Diamonds", 35000);
@@ -74,10 +40,6 @@ public class Game {
         mlNominal.put("2195 Diamonds", 439000);
         daftarGame.put("ML01", new Game("ML01", "Mobile Legends", "Moonton", mlNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 3: FREE FIRE
-        // 📝 Publisher: Garena | 💰 Mata Uang: Diamonds
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> ffNominal = new LinkedHashMap<>();
         ffNominal.put("100 Diamonds", 15000);
         ffNominal.put("210 Diamonds", 30000);
@@ -88,10 +50,6 @@ public class Game {
         ffNominal.put("2180 Diamonds", 300000);
         daftarGame.put("FF01", new Game("FF01", "Free Fire", "Garena", ffNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 4: PUBG MOBILE
-        // 📝 Publisher: Tencent Games | 💰 Mata Uang: UC (Unknown Cash)
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> pubgNominal = new LinkedHashMap<>();
         pubgNominal.put("60 UC", 15000);
         pubgNominal.put("125 UC", 30000);
@@ -101,10 +59,6 @@ public class Game {
         pubgNominal.put("2000 UC", 470000);
         daftarGame.put("PUBG01", new Game("PUBG01", "PUBG Mobile", "Tencent Games", pubgNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 5: GENSHIN IMPACT
-        // 📝 Publisher: HoYoverse | 💰 Mata Uang: Genesis Crystal
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> giNominal = new LinkedHashMap<>();
         giNominal.put("60 Genesis Crystal", 15000);
         giNominal.put("300 Genesis Crystal", 73000);
@@ -114,10 +68,6 @@ public class Game {
         giNominal.put("6480 Genesis Crystal", 1525000);
         daftarGame.put("GI01", new Game("GI01", "Genshin Impact", "HoYoverse", giNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 6: HONOR OF KINGS
-        // 📝 Publisher: Tencent Games | 💰 Mata Uang: Points
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> hokNominal = new LinkedHashMap<>();
         hokNominal.put("60 Points", 15000);
         hokNominal.put("300 Points", 75000);
@@ -128,10 +78,6 @@ public class Game {
         hokNominal.put("10000 Points", 2200000);
         daftarGame.put("HOK01", new Game("HOK01", "Honor of Kings", "Tencent Games", hokNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 7: ROBLOX
-        // 📝 Publisher: Roblox Corporation | 💰 Mata Uang: Robux
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> robloxNominal = new LinkedHashMap<>();
         robloxNominal.put("400 Robux", 50000);
         robloxNominal.put("800 Robux", 100000);
@@ -141,10 +87,6 @@ public class Game {
         robloxNominal.put("22000 Robux", 2100000);
         daftarGame.put("RBX01", new Game("RBX01", "Roblox", "Roblox Corporation", robloxNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 8: STEAM WALLET
-        // 📝 Publisher: Valve | 💰 Mata Uang: Rupiah (Wallet topup)
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> steamNominal = new LinkedHashMap<>();
         steamNominal.put("Rp 50.000", 50000);
         steamNominal.put("Rp 100.000", 100000);
@@ -153,10 +95,6 @@ public class Game {
         steamNominal.put("Rp 1.000.000", 1000000);
         daftarGame.put("STEAM01", new Game("STEAM01", "Steam Wallet", "Valve", steamNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 9: VALORANT
-        // 📝 Publisher: Riot Games | 💰 Mata Uang: VP (Valorant Points)
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> valNominal = new LinkedHashMap<>();
         valNominal.put("125 VP", 20000);
         valNominal.put("420 VP", 65000);
@@ -167,10 +105,6 @@ public class Game {
         valNominal.put("11750 VP", 1760000);
         daftarGame.put("VAL01", new Game("VAL01", "Valorant", "Riot Games", valNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 10: CLASH OF CLANS
-        // 📝 Publisher: Supercell | 💰 Mata Uang: Gems
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> cocNominal = new LinkedHashMap<>();
         cocNominal.put("500 Gems", 50000);
         cocNominal.put("1200 Gems", 110000);
@@ -180,10 +114,6 @@ public class Game {
         cocNominal.put("25000 Gems", 1950000);
         daftarGame.put("COC01", new Game("COC01", "Clash of Clans", "Supercell", cocNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 11: DOTA 2
-        // 📝 Publisher: Valve | 💰 Mata Uang: Dota Plus
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> dotaNominal = new LinkedHashMap<>();
         dotaNominal.put("100 Dota Plus", 25000);
         dotaNominal.put("250 Dota Plus", 60000);
@@ -193,10 +123,6 @@ public class Game {
         dotaNominal.put("5000 Dota Plus", 1080000);
         daftarGame.put("DOTA01", new Game("DOTA01", "Dota 2", "Valve", dotaNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 12: ARENA OF VALOR
-        // 📝 Publisher: Tencent Games | 💰 Mata Uang: Vouchers
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> aovNominal = new LinkedHashMap<>();
         aovNominal.put("100 Vouchers", 15000);
         aovNominal.put("250 Vouchers", 37000);
@@ -207,10 +133,6 @@ public class Game {
         aovNominal.put("10000 Vouchers", 1410000);
         daftarGame.put("AOV01", new Game("AOV01", "Arena of Valor", "Tencent Games", aovNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 13: WILD RIFT
-        // 📝 Publisher: Riot Games | 💰 Mata Uang: Wild Cores
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> wrNominal = new LinkedHashMap<>();
         wrNominal.put("100 Wild Cores", 15000);
         wrNominal.put("250 Wild Cores", 37000);
@@ -220,10 +142,6 @@ public class Game {
         wrNominal.put("5000 Wild Cores", 715000);
         daftarGame.put("WR01", new Game("WR01", "Wild Rift", "Riot Games", wrNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 14: AMONG US
-        // 📝 Publisher: Innersloth | 💰 Mata Uang: Stars
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> amongNominal = new LinkedHashMap<>();
         amongNominal.put("2000 Stars", 25000);
         amongNominal.put("5000 Stars", 60000);
@@ -231,10 +149,6 @@ public class Game {
         amongNominal.put("25000 Stars", 280000);
         daftarGame.put("AMONG01", new Game("AMONG01", "Among Us", "Innersloth", amongNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 15: BRAWL STARS
-        // 📝 Publisher: Supercell | 💰 Mata Uang: Gems
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> brawlNominal = new LinkedHashMap<>();
         brawlNominal.put("80 Gems", 50000);
         brawlNominal.put("170 Gems", 100000);
@@ -242,10 +156,6 @@ public class Game {
         brawlNominal.put("950 Gems", 550000);
         daftarGame.put("BRAWL01", new Game("BRAWL01", "Brawl Stars", "Supercell", brawlNominal));
         
-        // ═══════════════════════════════════════════════════════════════════════════
-        // 🎮 GAME 16: MAGIC CHESS GO GO
-        // 📝 Publisher: Moonton | 💰 Mata Uang: Magic Crystals
-        // ═══════════════════════════════════════════════════════════════════════════
         Map<String, Integer> magicChessNominal = new LinkedHashMap<>();
         magicChessNominal.put("100 Magic Crystals", 15000);
         magicChessNominal.put("250 Magic Crystals", 37000);
@@ -254,22 +164,8 @@ public class Game {
         magicChessNominal.put("2000 Magic Crystals", 285000);
         magicChessNominal.put("5000 Magic Crystals", 710000);
         daftarGame.put("MCG01", new Game("MCG01", "Magic Chess Go Go", "Moonton", magicChessNominal));
-        
-       
-        // ────────────────────────────────────────────────────────────────────────────
-        // ➕ [TAMBAH] - Cara menambahkan game baru:
-        // ────────────────────────────────────────────────────────────────────────────
-        // Map<String, Integer> gameBaruNominal = new LinkedHashMap<>();
-        // gameBaruNominal.put("100 Item", 15000);
-        // gameBaruNominal.put("200 Item", 30000);
-        // daftarGame.put("KODE01", new Game("KODE01", "Nama Game", "Publisher", gameBaruNominal));
-        // ────────────────────────────────────────────────────────────────────────────
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 CONSTRUCTOR
-    // 📝 FUNGSI: Membuat objek Game baru
-    // ════════════════════════════════════════════════════════════════════════════════
     public Game(String kodeGame, String namaGame, String publisher, Map<String, Integer> nominalTopup) {
         this.kodeGame = kodeGame;
         this.namaGame = namaGame;
@@ -277,26 +173,14 @@ public class Game {
         this.nominalTopup = nominalTopup;
     }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 GETTER METHODS
-    // 📝 FUNGSI: Mengambil nilai dari atribut private
-    // ════════════════════════════════════════════════════════════════════════════════
     public String getKodeGame() { return kodeGame; }
     public String getNamaGame() { return namaGame; }
     public String getPublisher() { return publisher; }
     public Map<String, Integer> getNominalTopup() { return nominalTopup; }
     
-    // ════════════════════════════════════════════════════════════════════════════════
-    // 📌 STATIC METHODS - MANAJEMEN DATA GAME
-    // ════════════════════════════════════════════════════════════════════════════════
-    
-    // 📌 Mengambil semua data game
     public static Map<String, Game> getAllGame() { return daftarGame; }
-    
-    // 📌 Mencari game berdasarkan kode
     public static Game getGameByKode(String kode) { return daftarGame.get(kode); }
     
-    // 📌 Mengambil semua nama game dalam bentuk array
     public static String[] getDaftarNamaGame() {
         String[] namaGame = new String[daftarGame.size()];
         int i = 0;
@@ -306,7 +190,6 @@ public class Game {
         return namaGame;
     }
     
-    // 📌 Mencari game berdasarkan nama (case insensitive)
     public static Game getGameByNama(String nama) {
         for (Game g : daftarGame.values()) {
             if (g.getNamaGame().equalsIgnoreCase(nama)) {
@@ -316,7 +199,6 @@ public class Game {
         return null;
     }
     
-    // 📌 Mengambil daftar nominal yang sudah diurutkan dari yang termurah
     public List<Map.Entry<String, Integer>> getSortedNominal() {
         List<Map.Entry<String, Integer>> list = new ArrayList<>(nominalTopup.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
